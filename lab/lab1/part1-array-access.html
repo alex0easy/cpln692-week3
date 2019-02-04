@@ -74,10 +74,20 @@
     Start code
 
     ===================== */
+    //Data Generation and Storage
+    let restaurantData = [[39.954254, -75.202402, 'Label 1'],[40.746072, -73.945808, 'Label 2'],[40.759470, -73.829739, 'Label 3'], [40.659470, -73.729739, 'Label 4']];
 
-    L.marker([0, 0]).addTo(map);
-    L.marker([0, 0]).addTo(map);
-    L.marker([0, 0]).addTo(map);
+    //Process data
+    let addMarker = function (i) {
+      var marker = L.marker([restaurantData[i][0], restaurantData[i][1]]).addTo(map);
+      popupContent = restaurantData[i][2];
+      marker.bindPopup(popupContent).openPopup();
+    }
+
+    for (let j=0; j<restaurantData.length; j++){
+      addMarker(j);
+    }
+
 
     /* =====================
 

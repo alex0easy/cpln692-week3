@@ -31,8 +31,28 @@
     Start code
 
     ===================== */
+    // Question 1
+    var answer1 = 0;
 
+    for (let i=0; i<1000; i++){
+      if (i%3===0 || i%5===0){answer1 = answer1 + i;};
+    }
 
+    console.log(answer1);
+
+    // Question 2
+    let i=1;
+    let j=2;
+    let k=i+j;
+    let answer2=0;
+
+    do {
+      answer2=answer2+j;
+      i=j+k;
+      j=k+i;
+      k=i+j;
+    } while (j<4e6)
+    console.log(answer2);
 
     /* =====================
 

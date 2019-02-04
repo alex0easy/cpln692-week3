@@ -1,23 +1,24 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <!--stylesheet imports-->
-    <link rel="stylesheet" href="leaflet.css" />
-  </head>
-  <body>
 
-    <!--left panel-->
-    <div style="position: absolute; left: 0px; width: 400px; top: 0; bottom: 0;"></div>
-    <!--map-->
-    <div id="map" style="position: absolute; right: 0; left: 400px; top: 0; bottom: 0;"></div>
+<head>
+  <!--stylesheet imports-->
+  <link rel="stylesheet" href="leaflet.css" />
+</head>
 
-    <!--javascript imports-->
-    <script src="leaflet.js"></script>
-    <script src="part4-data-clean.js"></script>
-    <script src="part4-data-dirty.js"></script>
+<body>
 
-    <script>
+  <!--left panel-->
+  <div style="position: absolute; left: 0px; width: 400px; top: 0; bottom: 0;"></div>
+  <!--map-->
+  <div id="map" style="position: absolute; right: 0; left: 400px; top: 0; bottom: 0;"></div>
 
+  <!--javascript imports-->
+  <script src="leaflet.js"></script>
+  <script src="part3-data-clean.js"></script>
+  <script src="part3-data-dirty.js"></script>
+
+  <script>
     /* =====================
 
     # Lab 1, Part 4 — Data Transformation
@@ -63,15 +64,31 @@
 
     ===================== */
 
-    var data = bikeArrayClean;
+    var data = bikeArrayDirty;
 
     /* =====================
 
     Start code to filter data
 
     ===================== */
+    var data2 = [];
+    for (let i = 0; i < data.length; i++) {
+      let storage = [];
+      if (data[i].length === 4) {
+        storage.push(Number(data[i][0]), Number(data[i][1]), data[i][2], Number(data[i][3].substring(0, 2)));
+      }
+
+      data2.push(storage);
+    }
 
 
+    var dataFiltered =[];
+    for (let i=0; i<data2.length; i++){
+      if (data2[i][3]>=20){
+        dataFiltered.push(data2[i]);
+      }
+    }
+    console.log(dataFiltered);
 
     /* =====================
 
@@ -98,6 +115,15 @@
 
     ===================== */
 
+    let addMarker = function (i) {
+      var marker = L.marker([dataFiltered[i][1], dataFiltered[i][0]]).addTo(map);
+      popupContent = (dataFiltered[i][2] + ' '+ dataFiltered[i][3] + ' stations.');
+      marker.bindPopup(popupContent).openPopup();
+    }
+
+    for (let j=0; j<dataFiltered.length; j++){
+      addMarker(j);
+    }
 
 
     /* =====================
@@ -105,7 +131,7 @@
     End code to add markers to map
 
     ===================== */
+  </script>
+</body>
 
-    </script>
-  </body>
 </html>
